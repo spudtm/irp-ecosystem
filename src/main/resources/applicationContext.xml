@@ -6,7 +6,39 @@
 							http://www.springframework.org/schema/context 
 							http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-    <context:component-scan base-package="uk.ac.dotrural.irp.restful">
-   		<context:include-filter type="regex" expression="(resources)\..*"/>
-	</context:component-scan>
+	<bean id="gisRoadMapEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="naptanEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="observationsEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="operatorsEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="routesEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="userProfilesEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="timeTablesEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	
+	<bean id="gisRoadMap" class="uk.ac.dotrural.irp.ecosystem.resources.impl.GISRoadMapResource">
+		<property name="gisRoadMapEndpoint" ref="gisRoadMapEndpoint"/>
+	</bean>
+
+	<bean id="naptan" class="uk.ac.dotrural.irp.ecosystem.resources.impl.TransportResource">
+		<property name="naptanEndpoint" ref="naptanEndpoint"/>
+	</bean>
+
+	<bean id="observations" class="uk.ac.dotrural.irp.ecosystem.resources.impl.ObservationsResource">
+		<property name="observationsEndpoint" ref="observationsEndpoint"/>
+	</bean>
+
+	<bean id="operators" class="uk.ac.dotrural.irp.ecosystem.resources.impl.OperatorsResource">
+		<property name="operatorsEndpoint" ref="operatorsEndpoint"/>
+	</bean>
+
+	<bean id="routes" class="uk.ac.dotrural.irp.ecosystem.resources.impl.RoutesResource">
+		<property name="routesEndpoint" ref="routesEndpoint"/>
+	</bean>
+
+	<bean id="userProfiles" class="uk.ac.dotrural.irp.ecosystem.resources.impl.UserProfilesResource">
+		<property name="userProfilesEndpoint" ref="userProfilesEndpoint"/>
+	</bean>
+
+	<bean id="timeTables" class="uk.ac.dotrural.irp.ecosystem.resources.impl.TimeTablesResource">
+		<property name="timeTablesEndpoint" ref="timeTablesEndpoint"/>
+	</bean>
 </beans>

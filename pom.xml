@@ -23,6 +23,16 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
+                	<systemProperties>
+                		<systemProperty>
+                			<name>http.proxyHost</name>
+                			<value>proxy.abdn.ac.uk</value>
+                		</systemProperty>
+                		<systemProperty>
+                			<name>http.proxyPort</name>
+                			<value>8080</value>
+                		</systemProperty>
+                	</systemProperties>
                     <reload>manual</reload>
                     <stopKey>stop</stopKey>
                     <stopPort>9966</stopPort>
@@ -89,5 +99,5 @@
         <jersey.version>1.0.2</jersey.version>
     </properties>
 
-    <artifactId>irp-rs</artifactId>
+    <artifactId>ecosystem</artifactId>
 </project>

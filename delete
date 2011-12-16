@@ -1,0 +1,1 @@
+curl -sv -X DELETE $1 

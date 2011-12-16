@@ -1,0 +1,1 @@
+curl -sv -X POST -HContent-type:application/json --data "$1" $2
