@@ -2,9 +2,11 @@ package uk.ac.dotrural.irp.ecosystem.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.dotrural.irp.ecosystem.models.jaxb.timetable.Line;
+import uk.ac.dotrural.irp.ecosystem.queries.alert.ServiceDays;
 
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -76,5 +78,18 @@ public class Util
       hexString.append(Integer.toHexString(0xFF & b));
     
     return hexString.toString();
+  }
+  
+  public static ServiceDays [] getServiceDays(boolean... days)
+  {
+    ArrayList<ServiceDays> selectedDays = new ArrayList<ServiceDays>();
+    ServiceDays [] serviceDays = ServiceDays.values();
+    
+    for(int i=0;i<days.length;i++)
+    {
+      if(days[i])
+        selectedDays.add(serviceDays[i]);
+    }
+    return selectedDays.toArray(new ServiceDays[selectedDays.size()]);
   }
 }
