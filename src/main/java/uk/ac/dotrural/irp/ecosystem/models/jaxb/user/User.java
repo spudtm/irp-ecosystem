@@ -13,6 +13,20 @@ public class User
   private String authenticationToken;
   private boolean exists;
   
+  public User()
+  {}
+  
+  public User(String userUri)
+  {
+    this.userUri = userUri;
+    this.exists = true;
+  }
+  
+  public User(boolean exists)
+  {
+    this.exists = exists;
+  }
+  
   @XmlElement(name="nickname")
   public String getNickname()
   {

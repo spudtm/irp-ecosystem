@@ -28,7 +28,7 @@ public class FeedbackQueries {
 	public static String getCreateFeedbackUpdate(String userUri,
 			String journeyUri, String feedback, String feedbackUri) {
 		return String.format(
-				QueryReader.getString("FeedbackQueryProxy.update.create"),
+				QueryReader.getString("FeedbackQueries.update.create"),
 				feedbackUri, journeyUri, userUri, toXsdString(feedback));
 	}
 

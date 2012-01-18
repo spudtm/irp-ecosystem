@@ -10,6 +10,14 @@ public class Line
   private String label;
   private String altLabel;
   private Directions directions;
+  
+  public Line()
+  {}
+  
+  public Line(String uri)
+  {
+    this.uri = uri;
+  }
 
   @XmlElement(name="uri")
   public String getUri()

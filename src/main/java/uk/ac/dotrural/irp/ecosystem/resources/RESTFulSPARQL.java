@@ -23,13 +23,13 @@ public interface RESTFulSPARQL
   @POST
   @Consumes({MediaType.APPLICATION_JSON})
   @Produces({MediaType.APPLICATION_JSON})
-  @Path("update")
+  @Path("sparqlUpdate")
   public void update(Query query);
   
   @POST
   @Consumes({MediaType.APPLICATION_JSON})
   @Produces({MediaType.APPLICATION_JSON})
-  @Path("query")
+  @Path("sparqlQuery")
   public String query(Query query);
   
   @GET

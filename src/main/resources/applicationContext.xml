@@ -12,7 +12,7 @@
 	<bean id="observationEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
 	<bean id="timeTableEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
 	<bean id="naptanEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
-	<bean id="userProfileEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
+	<bean id="userEndpoint" class="uk.ac.dotrural.irp.ecosystem.services.SPARQLEndpoint"/>
 	
 	<bean id="alert" class="uk.ac.dotrural.irp.ecosystem.resources.impl.AlertResource">
 		<property name="alertEndpoint" ref="alertEndpoint"/>
@@ -38,7 +38,7 @@
 		<property name="naptanEndpoint" ref="naptanEndpoint"/>
 	</bean>
 
-	<bean id="userProfile" class="uk.ac.dotrural.irp.ecosystem.resources.impl.UserProfileResource">
-		<property name="userProfileEndpoint" ref="userProfileEndpoint"/>
+	<bean id="user" class="uk.ac.dotrural.irp.ecosystem.resources.impl.UserResource">
+		<property name="userEndpoint" ref="userEndpoint"/>
 	</bean>
 </beans>
