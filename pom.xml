@@ -92,7 +92,7 @@
 	     <url>http://openjena.org/repo-dev</url>
 	    </repository>
     </repositories>
-    
+
     <properties>
         <jdkLevel>1.5</jdkLevel>
         <jetty.version>6.1.18</jetty.version>
