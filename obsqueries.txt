@@ -1,0 +1,165 @@
+// observation create - expects:
+ value uri, optional location triples (accuracy, heading, speed), 
+lat, long, easting, northing, sensor output uri, value uri,
+observation URI, sensor output URI, optional sensing method used triple, featureOfInterest Uri, observed by URI,  
+observation result time, observation sampling time, server timestamp
+
+ObservationQueries.locationDevice.update.create=
+PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#> 
+PREFIX irpsens: <http://localhost/irp/sensor/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX spatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
+
+INSERT DATA { 
+ <%s> a irpsens:LocationDeviceValue;
+  %s
+  geo:lat "%s"^^xsd:double;
+  geo:long "%s"^^xsd:double; 
+  spatialrelations:easting "%s"^^xsd:double;
+  spatialrelations:northing "%s"^^xsd:double.
+ <%s> a irpsens:LocationDeviceSensorOutput;
+  ssn:hasValue <%s>. 
+ <%s> a irpsens:LocationDeviceObservation;
+  ssn:observationResult <%s>;
+  %s
+  ssn:featureOfInterest <%s>;
+  ssn:observedBy <%s>;
+  ssn:observationResultTime "%s"^^xsd:dateTime;
+  ssn:observationSamplingTime "%s"^^xsd:dateTime;
+  irpsens:serverTimestamp "%s"^^xsd:dateTime.
+}
+  
+ObservationQueries.locationDevice.update.create.accuracy=irpsens:accuracy "%s"^^xsd:double;  
+ObservationQueries.locationDevice.update.create.heading=irpsens:heading "%s"^^xsd:double; 
+ObservationQueries.locationDevice.update.create.speed=irpsens:speed "%s"^^xsd:double. 
+ObservationQueries.locationDevice.update.create.sensingMethodUsed= ssn:sensingMethodUsed <%s>; 
+   
+   
+// get observation   
+PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#> 
+PREFIX irpsens: <http://localhost/irp/sensor/> 
+SELECT ?foi ?result ?observedBy ?sensingMethodUsed ?observationResult  ?osbservationResultTime ?observationSamplingTime ?serverTime
+WHERE{ 
+ <%s> a irpsens:LocationDeviceObservation;  
+  ssn:observationResult ?result;
+  ssn:featureOfInterest ?foi;
+  ssn:observedBy ?observedBy;
+  ssn:observationResultTime ?osbservationResultTime;
+  ssn:observationSamplingTime ?observationSamplingTime;
+  irpsens:serverTimestamp ?serverTime.
+  optional {<%s> ssn:sensingMethodUsed ?sensingMethodUsed.}
+}
+ 
+ 
+ ObservationQueries.locationDevice.query.get.sensorOutput=
+ PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>
+ PREFIX irpsens: <http://localhost/irp/sensor/> 
+ SELECT ?value WHERE {  <%s> a irpsens:LocationSensorOutput; ssn:hasValue ?value.}
+ 
+ 
+ // location device value
+ PREFIX irpsens: <http://localhost/irp/sensor/> 
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+ PREFIX spatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
+  SELECT ?latitude ?longitude ?easting ?northing ?accuracy ?heading ?speed 
+  WHERE{ 
+    <%s> a irpsens:LocationDeviceValue; 
+     geo:lat ?latitude;  
+     geo:long ?longitude; 
+	 spatialrelations:easting ?easting;
+  	 spatialrelations:northing ?northing.
+  	 optional {<%s> irpsens:accuracy ?accuracy.}
+  	 optional {<%s> irpsens:heading ?heading.}
+  	 optional {<%s> irpsens:speed ?speed.}
+  } 
+
+ObservationQueries.locationDevice.query.get.outputValueForObservation=
+PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#> 
+PREFIX irpsens: <http://localhost/irp/sensor/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+PREFIX spatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
+
+SELECT ?latitude ?longitude ?easting ?northing ?accuracy ?heading ?speed  WHERE
+{
+   <%s> a irpsens:LocationDeviceObservation;  
+	ssn:observationResult/ssn:hasValue ?value. 
+	?value a irpsens:LocationDeviceValue; 
+	 geo:lat ?latitude;  
+     geo:long ?longitude; 
+     spatialrelations:easting ?easting;
+  	 spatialrelations:northing ?northing.
+  	  optional {?value irpsens:accuracy ?accuracy.}
+  	 optional {?value irpsens:heading ?heading.}
+  	 optional {?value irpsens:speed ?speed.}
+}
+
+
+// delete observation
+ObservationQueries.locationDevice.update.delete=
+PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#> 
+PREFIX irpsens: <http://localhost/irp/sensor/> 
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX spatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
+ DELETE { 
+  ?value a irpsens:LocationDeviceValue;
+  geo:lat ?lat;
+  geo:long ?long; 
+  spatialrelations:easting ?easting;
+  spatialrelations:northing ?northing.
+ ?output a irpsens:LocationDeviceSensorOutput;
+  ssn:hasValue ?value. 
+ <%s> a irpsens:LocationDeviceObservation;
+  ssn:observationResult ?output;
+  ssn:featureOfInterest ?foi;
+  ssn:observedBy ?observer;
+  ssn:observationResultTime ?obsRT;
+  ssn:observationSamplingTime ?obsST;
+  irpsens:serverTimestamp ?serverT.
+ } WHERE {
+     ?value a irpsens:LocationDeviceValue;
+  geo:lat ?lat;
+  geo:long ?long; 
+  spatialrelations:easting ?easting;
+  spatialrelations:northing ?northing;
+  irpsens:accuracy ?accuracy.
+ ?output a irpsens:LocationDeviceSensorOutput;
+  ssn:hasValue ?value. 
+ <%s> a irpsens:LocationDeviceObservation;
+  ssn:observationResult ?output;
+  ssn:featureOfInterest ?foi;
+  ssn:observedBy ?observer;
+  ssn:observationResultTime ?obsRT;
+  ssn:observationSamplingTime ?obsST;
+  irpsens:serverTimestamp ?serverT.
+   }
+   
+    } union {
+    <%s> a irpsens:LocationDeviceObservation;  
+	ssn:observationResult/ssn:hasValue ?value. 
+	?value a irpsens:LocationDeviceValue; 
+    irpsens:accuracy ?accuracy.
+    }
+ }
+ 
+   } union {
+  <%s> a irpsens:LocationDeviceObservation;  
+	ssn:observationResult/ssn:haveValue ?value. 
+	?value a irpsens:LocationDeviceValue; 
+    irpsens:accuracy ?accuracy.
+  } union {
+    <%s> a irpsens:LocationDeviceObservation;  
+	ssn:observationResult/ssn:haveValue ?value. 
+	?value a irpsens:LocationDeviceValue; 
+    irpsens:heading ?heading.
+  } union {
+    <%s> a irpsens:LocationDeviceObservation;  
+	ssn:observationResult/ssn:haveValue ?value. 
+	?value a irpsens:LocationDeviceValue; 
+  	 irpsens:speed ?speed.
+  } 
+  }
+       
+       
+       

@@ -26,7 +26,7 @@
 		<property name="journeyEndpoint" ref="journeyEndpoint"/>
 	</bean>
 
-	<bean id="observation" class="uk.ac.dotrural.irp.ecosystem.resources.impl.ObservationResource">
+	<bean id="locationDeviceObservation" class="uk.ac.dotrural.irp.ecosystem.resources.impl.LocationDeviceObservationResource">
 		<property name="observationEndpoint" ref="observationEndpoint"/>
 	</bean>
 

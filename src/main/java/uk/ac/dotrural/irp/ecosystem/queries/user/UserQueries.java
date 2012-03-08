@@ -51,6 +51,10 @@ public class UserQueries {
 				userUri);
 		return query;
 	}
+	
+	public static String getUpdateUserUpdate(String userUri, String nickname, String email, String password){
+		return String.format(QueryReader.getString("UserQueries.update"), userUri, userUri, nickname, email, password, userUri);
+	}
 
 	private static String encodePassword(String password) {
 		return password;

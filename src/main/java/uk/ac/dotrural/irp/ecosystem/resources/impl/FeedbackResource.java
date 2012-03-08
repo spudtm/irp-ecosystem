@@ -167,7 +167,9 @@ public class FeedbackResource implements RESTFulSPARQL
     if(feedbackPayload.getAuthenticationToken() == null || feedbackPayload.getAuthenticationToken().trim().equals(""))
       throw new ExceptionReporter(new NullPointerException("An authentication token needed to update the feedback."));
 
-    // TO DO: update query needed
+    String query = FeedbackQueries.getUpdateFeedbackUpdate(feedbackPayload.getFeedbackUri().trim(), feedbackPayload.getMessage());
+    Query sparqlQuery = new Query(query);
+    feedbackEndpoint.update(sparqlQuery);
   }
   
   @GET

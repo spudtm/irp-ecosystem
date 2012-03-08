@@ -55,6 +55,11 @@
     </build>
     
     <dependencies>
+         <dependency>
+            <groupId>uk.me.jstott</groupId>
+            <artifactId>jcoord</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
@@ -66,14 +71,15 @@
             <version>${jersey.version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.openjena</groupId>
-        	<artifactId>fuseki</artifactId>
-        	<version>0.2.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
         	<groupId>com.sun.jersey</groupId>
         	<artifactId>jersey-json</artifactId>
         	<version>1.1.4</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.openjena</groupId>
+        	<artifactId>fuseki</artifactId>
+        	<version>0.2.0</version>
+        	<scope>compile</scope>
         </dependency>
     </dependencies>
     
@@ -91,6 +97,16 @@
 	     <id>jena-repo-dev</id>
 	     <url>http://openjena.org/repo-dev</url>
 	    </repository>
+	    <repository>
+            <id>totalchange</id>
+            <name>total change</name>
+            <url>http://www.totalchange.com/maven2</url>
+        </repository>
+        <repository>
+            <id>goss.archiva.snapshots</id>
+            <name>goss </name>
+            <url>http://yealm:8280/archiva/repository/goss.archiva.snapshots</url>
+        </repository>
     </repositories>
     
     <properties>
